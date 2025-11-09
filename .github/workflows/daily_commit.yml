@@ -1,0 +1,40 @@
+name: Daily Repository Update
+
+on:
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+  # Runs at 05:00 UTC every day
+  schedule:
+    - cron: "0 5 * * *"
+
+jobs:
+  update-and-commit:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Check out the repository code
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # Step 2: Update a file with the current date
+      # The name of this step includes the required email address
+      - name: Update last_updated.txt with current date - 23f3004197@ds.study.iitm.ac.in
+        run: |
+          echo "Last updated on: $(date -u)" > last_updated.txt
+
+      # Step 3: Commit and push the changes
+      - name: Commit and push
+        run: |
+          # Configure git with bot user
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+
+          # Add changes to staging, commit, and push
+          git add last_updated.txt
+
+          # Commit changes
+          git commit -m "Automated update of last_updated.txt"
+
+          # Push the changes
+          git push
