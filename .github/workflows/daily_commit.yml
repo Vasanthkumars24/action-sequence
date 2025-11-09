@@ -19,7 +19,7 @@ jobs:
 
       # Step 2: Update a file with the current date
       # The name of this step includes the required email address
-      - name: Update last_updated.txt with current date - 23f3004197@ds.study.iitm.ac.in
+      - name: Update last_updated.txt with current date - 22f3001685@ds.study.iitm.ac.in
         run: |
           echo "Last updated on: $(date -u)" > last_updated.txt
 
